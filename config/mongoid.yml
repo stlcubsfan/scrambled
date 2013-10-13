@@ -78,7 +78,10 @@ production:
   sessions:
     default:
       database: scramblers
-      uri: ENV['MONGOHQ_URI']  
+      hosts:
+        - dharma.mongohq.com:10096
+      username: ENV['MONGO_HQ_USER']
+      password: ENV['MONGO_HQ_PASS']
       options:
         skip_version_check: true
         safe: true
