@@ -82,6 +82,6 @@ production:
         - dharma.mongohq.com:10096
       username: ENV['MONGO_HQ_USER']
       password: ENV['MONGO_HQ_PASS']
-    options:
-      skip_version_check: true
-      safe: true
+      options:
+        skip_version_check: true
+        safe: true
