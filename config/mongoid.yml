@@ -79,7 +79,7 @@ production:
     default:
       database: scramblers
       hosts:
-        - dharma.mongohq.com:10096
+        - dharma.mongohq.com:10096/scramblers
       username: ENV['MONGO_HQ_USER']
       password: ENV['MONGO_HQ_PASS']
       options:
