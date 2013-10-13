@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
       render text: "Hello, #{current_user.name}!"
     else
       render text: "Hello, Ray!"
+    end
   end
 
   protected
