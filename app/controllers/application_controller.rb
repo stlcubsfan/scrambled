@@ -5,7 +5,10 @@ class ApplicationController < ActionController::Base
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   def index
-    render text: "Hello, Ray!"
+    if user_signed_in?
+      render text: "Hello, #{current_user.name}!"
+    else
+      render text: "Hello, Ray!"
   end
 
   protected
