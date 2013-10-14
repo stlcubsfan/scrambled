@@ -6,4 +6,11 @@
     <% end %>
     </ul>
   </div>
+  <div class="span3">
+    <ul>
+      <% RankedGolfer.bgolfers.each do |g| %>
+          <li><%= "#{g.rank} - #{g.name}" %></li>
+      <% end %>
+    </ul>
+  </div>
 </div>
