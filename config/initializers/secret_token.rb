@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Scrambled::Application.config.secret_key_base = 'ff8cde8edeb870296e0a95eb937e1eef27a078645a7f610b748ab15455818394150a89d45b2d2e7cbb415f03b185ec9150be04d1f4358ec8bd3d6f4893aeb1a1'
+Scrambled::Application.config.secret_key_base = 'ef90b2e7a3798d81de27ac0e51dcbfe1bdbfd5126559cf4dcf951bd0e21901eb1ff02000fa4427e835f2a95a00e80ef5b8566f617b9f05d107cb731036bcc4db'
