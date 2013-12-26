@@ -25,6 +25,7 @@ db/*.sqlite3
 /config/secrets.yml
 
 # various artifacts
+.env
 **.war
 *.rbc
 *.sassc
