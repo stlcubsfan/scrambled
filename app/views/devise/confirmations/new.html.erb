@@ -1,0 +1,16 @@
+
+
+<%= simple_form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :class=> "form-register", :method => :post }) do |f| %>
+  <h3>Resend Confirmation Email</h3>
+  <%= f.error_notification %>
+  <%= f.full_error :confirmation_token %>
+
+  <div class="form-group">
+    <%= f.input :email, :required => true, :autofocus => true %>
+  </div>
+  <button class="btn btn-lg btn-success btn-block" type="submit">Resend Confirmation Email</button>
+
+
+<% end %>
+
+<%= render "devise/shared/links" %>

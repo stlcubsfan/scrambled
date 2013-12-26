@@ -1,7 +1,5 @@
 Scrambled::Application.routes.draw do
-  get "ranked_golfers/index"
+  devise_for :admins
   devise_for :users
-
-  root "application#index"
-
+  root :to => 'visitors#new'
 end

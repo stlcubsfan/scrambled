@@ -73,7 +73,7 @@ Scrambled::Application.configure do
   config.active_support.deprecation = :notify
 
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: 'smtp.gmail.com',
     port: 587,
     domain: ENV["DOMAIN_NAME"],
     authentication: "plain",
@@ -82,6 +82,7 @@ Scrambled::Application.configure do
     password: ENV["GMAIL_PASSWORD"]
   }
 
+  config.action_mailer.default_url_options = { :host => 'scramblers.herokuapp.com' }
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false

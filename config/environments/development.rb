@@ -19,14 +19,10 @@ Scrambled::Application.configure do
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
-
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
-
+  # Raise an error on page load if there are pending migrations
+  config.active_record.migration_error = :page_load
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
+    address: 'smtp.gmail.com',
     port: 587,
     domain: ENV["DOMAIN_NAME"],
     authentication: "plain",
@@ -34,7 +30,11 @@ Scrambled::Application.configure do
     user_name: ENV["GMAIL_USERNAME"],
     password: ENV["GMAIL_PASSWORD"]
   }
-  # Send email in development mode.
-  config.action_mailer.perform_deliveries = true
 
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  # Debug mode disables concatenation and preprocessing of assets.
+  # This option may cause significant delays in view rendering with a large
+  # number of complex assets.
+  config.assets.debug = true
 end

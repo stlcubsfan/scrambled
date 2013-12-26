@@ -16,33 +16,33 @@ Recipes:
 ["apps4", "controllers", "core", "email", "extras", "frontend", "gems", "git", "init", "models", "prelaunch", "railsapps", "readme", "routes", "saas", "setup", "testing", "views"]
 
 Preferences:
-{:git=>true, :apps4=>"none", :dev_webserver=>"webrick", :prod_webserver=>"unicorn", :database=>"mongodb", :orm=>"mongoid", :templates=>"erb", :unit_test=>"rspec", :integration=>"rspec-capybara", :continuous_testing=>"none", :fixtures=>"factory_girl", :frontend=>"bootstrap", :bootstrap=>"sass", :email=>"gmail", :authentication=>"devise", :devise_modules=>"default", :authorization=>"none", :form_builder=>"simple_form", :starter_app=>"none", :quiet_assets=>true, :local_env_file=>true, :ban_spiders=>true, :github=>true}
+{:git=>true, :apps4=>"rails-bootstrap", :database=>"default", :unit_test=>false, :integration=>false, :fixtures=>false, :frontend=>"bootstrap3", :email=>"none", :authentication=>false, :devise_modules=>false, :authorization=>false, :starter_app=>false, :form_builder=>"simple_form", :quiet_assets=>true, :local_env_file=>true, :better_errors=>true, :dev_webserver=>"thin", :prod_webserver=>"thin", :templates=>"erb", :continuous_testing=>"none", :ban_spiders=>true}
 
 h2. Ruby on Rails
 
 This application requires:
 
 * Ruby version 2.0.0
-* Rails version 4.0.0
+* Rails version 4.0.2
 
 Learn more about "Installing Rails":http://railsapps.github.io/installing-rails.html.
 
 h2. Database
 
-This application uses MongoDB with the Mongoid ORM.
+This application uses SQLite with ActiveRecord.
 
 h2. Development
 
 * Template Engine: ERB
-* Testing Framework: RSpec and Factory Girl
-* Front-end Framework: Twitter Bootstrap (Sass)
+* Testing Framework: Test::Unit
+* Front-end Framework: Twitter Bootstrap 3.0 (Sass)
 * Form Builder: SimpleForm
-* Authentication: Devise
+* Authentication: None
 * Authorization: None
 
-h2. Email
 
-The application is configured to send email using a Gmail account.
+
+
 
 h2. Getting Started
 

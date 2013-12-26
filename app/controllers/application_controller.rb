@@ -4,16 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  def index
-    if user_signed_in?
-      render text: "Hello, #{current_user.name}!"
-    else
-      render text: "Hello, Ray!"
-    end
+  protected
+
+  def configure_permitted_parameters
+    logger.info "Got here"
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :first_name, :last_name) }
   end
 
-  protected
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :name
-  end
+
 end
