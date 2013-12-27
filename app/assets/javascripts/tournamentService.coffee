@@ -1,4 +1,4 @@
-angular.module('scrambledApp').factory 'TournamentService', ($resource, $http) ->
+angular.module('scrambledApp').factory 'TournamentService', ['$resource', '$http', ($resource, $http) ->
   class TournamentService
     constructor: (errorHandler) ->
       @service = $resource('/tournaments/:verb', {verb:'previous'})
@@ -9,3 +9,4 @@ angular.module('scrambledApp').factory 'TournamentService', ($resource, $http) -
       @service.query((-> null), @errorHandler)
     upcoming: ->
       @service.query({verb:'upcoming'}, (-> null), @errorHandler)
+]
