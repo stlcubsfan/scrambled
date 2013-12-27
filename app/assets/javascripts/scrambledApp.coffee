@@ -11,6 +11,9 @@ scrambledApp.config (['$stateProvider', '$urlRouterProvider', '$httpProvider', (
       "upcomingTournaments": {
         templateUrl: "/templates/upcomingTournaments.html",
         controller: "UpcomingTournamentsListController"
+      }, "espnHeadlines": {
+        templateUrl: "/templates/espnHeadlines.html",
+        controller: "EspnNewsController"
       }
     }
   }
