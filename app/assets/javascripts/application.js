@@ -14,4 +14,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require angular.min
+//= require angular-route.min
+//= require angular-ui-router.min
+//= require scrambledApp
 //= require_tree .

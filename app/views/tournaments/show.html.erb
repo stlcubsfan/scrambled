@@ -1,0 +1,16 @@
+<h2><%= @tournament.name %></h2>
+<table class="table">
+  <tr>
+    <th>Start Date</th><td><%= @tournament.start_date %></td>
+    <th>End Date</th><td><%= @tournament.end_date %></td>
+  </tr>
+  <tr>
+    <th>Picking Starts</th><td><%= @tournament.picks_start %></td>
+    <th>Picking Cut-off</th><td><%= @tournament.picks_end %></td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', edit_tournament_path(@tournament) %> |
+<%= link_to 'Back', tournaments_path %>
+
+

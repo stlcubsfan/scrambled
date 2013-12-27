@@ -1,0 +1,54 @@
+<% unless @tournament.errors.messages.empty? %>
+    <div class="alert alert-danger">
+      Please fix the following errors:
+      <ul>
+      <% @tournament.errors.full_messages.each do |m| %>
+           <li><%= m %></li>
+      <% end %>
+      </ul>
+    </div>
+<% end %>
+<%= form_for(@tournament, html: {:class => "form-horizontal", :role => "form"}) do |f| %>
+
+    <div class="form-group">
+      <label class="col-sm-4 control-label" for="tournament[name]">Competition Name</label>
+      <div class="col-sm-8">
+        <%= f.text_field :name, :placeholder => "Name", :autofocus => true, :required => true %>
+        <span class="help-block">(i.e. Masters 2014)</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label" for="start_date">Start Date</label>
+      <div class="col-sm-8">
+        <input type="date" name="tournament[start_date]" id="start_date" value="<%= @tournament.start_date %>" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label" for="end_date">End Date</label>
+      <div class="col-sm-8">
+        <input type="date" name="tournament[end_date]" id="end_date" value="<%= @tournament.end_date %>"required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label" for="tournament_picks_start">Picking Start Date/Time</label>
+      <div class="col-sm-8">
+        <%= datetime_local_field :tournament, :picks_start, :required => true %>
+
+        <span class="help-block">The date and time when people can start picking golfers</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 control-label" for="tournament_picks_end">Picking End Date/Time</label>
+      <div class="col-sm-8">
+        <%= datetime_local_field :tournament, :picks_end, :required => true %>
+        <span class="help-block">The cut-off date and time for picking golfers</span>
+      </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-8">
+        <button class="btn btn-lg btn-success">Save Tournament</button>
+        </div>
+    </div>
+
+<% end %>
