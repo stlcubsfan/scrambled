@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <head>
+      <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    </head>
+    <body>
+        <h2><%= @user.first_name %>, you've been invited!</h2>
+        <p>
+          A new tournament (<%= @tournament.name %>) is available and you've been invited to play!
+        </p>
+        <p>
+          Click <%= link_to "here", accept_invitations_url(@code) %> to accept the invitation.  You can also sign in to
+          the <%= link_to "Scrambled web-site", root_url %> and accept
+          the invitation by using the secret code: <%= @tournament.secret_code %>
+        </p>
+    </body>
+</html>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131227152817) do
+ActiveRecord::Schema.define(version: 20140102183948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,18 @@ ActiveRecord::Schema.define(version: 20131227152817) do
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
+  create_table "tournament_invitations", force: true do |t|
+    t.string   "invite_code",                   null: false
+    t.boolean  "accepted",      default: false
+    t.integer  "user_id"
+    t.integer  "tournament_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tournament_invitations", ["tournament_id"], name: "index_tournament_invitations_on_tournament_id", using: :btree
+  add_index "tournament_invitations", ["user_id"], name: "index_tournament_invitations_on_user_id", using: :btree
+
   create_table "tournaments", force: true do |t|
     t.string   "name"
     t.date     "start_date"
@@ -45,6 +57,7 @@ ActiveRecord::Schema.define(version: 20131227152817) do
     t.integer  "admin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "secret_code"
   end
 
   create_table "users", force: true do |t|
