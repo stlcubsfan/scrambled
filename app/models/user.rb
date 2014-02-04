@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :tournament_invitations
+  has_many :tournament_invitations do
+    def unaccepted
+      where accepted: false
+    end
+  end
 
 end
