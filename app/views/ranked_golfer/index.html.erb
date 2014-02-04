@@ -1,20 +1,26 @@
 <div ng-app="scrambledApp">
   <div ng-controller="RankedGolferController">
-    <h3>Current World Rankings</h3>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="golfer in rankedGolfers">
-        <td>{{golfer.rank}}</td>
-        <td>{{golfer.player}}</td>
-      </tr>
-      </tbody>
-    </table>
+      <div class="col-md-offset-2 col-md-6 col-sm-8 col-xs-8">
+        <h3>Current World Rankings</h3>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="golfer in rankedGolfers | filter: playerName">
+            <td>{{golfer.rank}}</td>
+            <td>{{golfer.player}}</td>
+          </tr>
+          </tbody>
+        </table>
 
+      </div>
+      <div class="col-md-4 col-sm-8 col-xs-4">
+        <h3>Player Search</h3>
+        <label for="playerName">Name: <input class="form-control" type="text" ng-model="playerName" id="playerName" name="playerName"></label>
+      </div>
   </div>
 </div>
