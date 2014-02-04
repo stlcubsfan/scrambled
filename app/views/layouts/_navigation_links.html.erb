@@ -1,6 +1,9 @@
-<%# add navigation links to this file %>
 
+<% if user_signed_in? or admin_signed_in? %>
+    <li><%= link_to "World Rankings", current_rankings_path %></li>
+<% end %>
 <% if admin_signed_in? %>
     <li class="navbar-brand">Admin Menu: </li>
     <li><%= link_to "Tournaments", tournaments_path %></li>
 <% end %>
+

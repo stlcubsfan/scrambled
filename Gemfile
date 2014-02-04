@@ -14,6 +14,7 @@ gem 'high_voltage'
 gem 'simple_form'
 gem 'thin'
 gem 'devise'
+gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 
 group :production do
   gem 'rails_12factor'
