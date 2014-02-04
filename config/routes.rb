@@ -1,4 +1,6 @@
 Scrambled::Application.routes.draw do
+  get "ranked_golfer/index"
+  get "ranked_golfer/reset"
   devise_for :admins
   devise_for :users
 
