@@ -1,2 +1,20 @@
-<h1>RankedGolfer#index</h1>
-<p>Find me in app/views/ranked_golfer/index.html.erb</p>
+<div ng-app="scrambledApp">
+  <div ng-controller="RankedGolferController">
+    <h3>Current World Rankings</h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="golfer in rankedGolfers">
+        <td>{{golfer.rank}}</td>
+        <td>{{golfer.player}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

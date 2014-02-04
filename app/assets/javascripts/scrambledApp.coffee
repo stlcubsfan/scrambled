@@ -5,18 +5,10 @@ scrambledApp = angular.module('scrambledApp', ['ngResource', 'ngRoute', 'ui.rout
 
 scrambledApp.config (['$stateProvider', '$urlRouterProvider', '$httpProvider', ($stateProvider, $urlRouterProvider, $httpProvider) ->
   $urlRouterProvider.when "", "/"
-  $stateProvider.state 'index', {
+  $stateProvider.state('index', {
     url: "/",
-    views: {
-      "upcomingTournaments": {
-        templateUrl: "/templates/upcomingTournaments.html",
-        controller: "UpcomingTournamentsListController"
-      }, "espnHeadlines": {
-        templateUrl: "/templates/espnHeadlines.html",
-        controller: "EspnNewsController"
-      }
-    }
-  }
+    templateUrl: "/templates/frontPage.html"
+  })
   authToken = $("meta[name=\"csrf-token\"]").attr("content")
   $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = authToken
   defaults = $httpProvider.defaults.headers

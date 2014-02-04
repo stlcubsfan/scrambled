@@ -1,27 +1,3 @@
-<div class="carousel slide" id="main-carousel" data-ride="carousel" data-interval="4000">
-  <ol class="carousel-indicators">
-    <li class="active" data-target="#main-carousel" data-slide-to="0"></li>
-    <li data-target="#main-carousel" data-slide-to="1"></li>
-    <li data-target="#main-carousel" data-slide-to="2"></li>
-    <li data-target="#main-carousel" data-slide-to="3"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="item active">
-      <%= image_tag "masters.jpg" %>
-    </div>
-    <div class="item">
-      <%= image_tag "usopen.jpg" %>
-    </div>
-    <div class="item">
-      <%= image_tag "britishopen.jpg" %>
-    </div>
-    <div class="item">
-      <%= image_tag "pgachampionship.jpg" %>
-    </div>
-  </div>
-</div>
 <div ng-app="scrambledApp">
-    <div class="col-md-4" ui-view="upcomingTournaments"></div>
-    <div class="col-md-4" ui-view="espnHeadlines"></div>
-    <div class="col-md-4"><h3>Previous Tournaments</h3></div>
+    <div ui-view></div>
 </div>

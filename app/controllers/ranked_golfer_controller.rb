@@ -1,5 +1,9 @@
 class RankedGolferController < ApplicationController
   def index
+
+  end
+
+  def list
     @ranked_golfers = []
     #RankedGolfer.each {|rg| @ranked_golfers << rg}
     @ranked_golfers = RankedGolfer.all.to_a
