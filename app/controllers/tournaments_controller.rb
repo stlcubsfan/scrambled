@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_admin!, except: [:upcoming]
-  before_action :set_tournament, only: [:show, :edit, :update, :destroy]
+  before_action :set_tournament, only: [:show, :edit, :update, :destroy, :uninvited_users, :invite_users]
 
   # GET /tournaments
   # GET /tournaments.json
@@ -11,6 +11,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments/1
   # GET /tournaments/1.json
   def show
+    uninvited_users
   end
 
   # GET /tournaments/new
@@ -78,6 +79,31 @@ class TournamentsController < ApplicationController
     render json: @tournaments
   end
 
+  def invite_users
+    users = params[:invite].keys
+    users.each do |u|
+      begin
+        user = User.find(u)
+        ti = TournamentInvitation.new
+        ti.tournament = @tournament
+        ti.user = User.find(u)
+        ti.save
+        InvitationMailer.tournament_invitation(ti).deliver
+      rescue Exception => e
+        logger.error e.message
+      end
+
+
+    end
+    redirect_to @tournament, notice: "Successfully sent invitations"
+  end
+
+  def uninvited_users
+    @uninvited_users = User.all
+    invited_users = @tournament.tournament_invitations.collect {|ti| ti.user}
+    @uninvited_users -= invited_users
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tournament
@@ -86,6 +112,6 @@ class TournamentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
-      params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end)
+      params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end, :secret_code)
     end
 end

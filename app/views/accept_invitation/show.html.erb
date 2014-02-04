@@ -1,0 +1,32 @@
+<div class="jumbotron">
+  <h1>Open Invitations</h1>
+  <p>
+    You have been invited to the following tournaments, but have not accepted the invitation.
+  </p>
+</div>
+
+<div class="container">
+  <div class="col-md-offset-2 col-md-6">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Tournament Name</th>
+          <th>Secret Word</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invites.each do |i| %>
+        <%= form_tag(action: 'accept_via_secret') do %>
+        <%= hidden_field_tag 'invite_id', i.id %>
+        <tr>
+          <td><%= i.tournament.name %></td>
+          <td><input name="secret_code" type="text" placeholder="Secret Word"/></td>
+          <td><button type="submit">Accept</button></td>
+        </tr>
+        <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

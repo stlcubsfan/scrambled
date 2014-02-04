@@ -1,2 +1,6 @@
 <%# add navigation links to this file %>
 
+<% if admin_signed_in? %>
+    <li class="navbar-brand">Admin Menu: </li>
+    <li><%= link_to "Tournaments", tournaments_path %></li>
+<% end %>

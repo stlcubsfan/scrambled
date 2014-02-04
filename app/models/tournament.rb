@@ -6,4 +6,5 @@ class Tournament < ActiveRecord::Base
   validates :picks_end, presence: true
 
   belongs_to :admin
+  has_many :tournament_invitations
 end

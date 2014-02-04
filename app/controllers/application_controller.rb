@@ -7,9 +7,15 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    logger.info "Got here"
     devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:email, :password, :password_confirmation, :first_name, :last_name) }
   end
 
+  def open_invitations
+    if user_signed_in?
+       if current_user.tournament_invitations.unaccepted.size > 0
+         flash[:unaccepted_invitations] = "You have an invitation waiting.  Click here to accept."
+       end
+    end
+  end
 
 end
