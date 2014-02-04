@@ -74,4 +74,3 @@ production:
     default:
       uri: <%= ENV['MONGOHQ_URI'] %>
       options:
-        safe: true
