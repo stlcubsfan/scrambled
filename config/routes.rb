@@ -21,6 +21,7 @@ Scrambled::Application.routes.draw do
   post 'invitation/accept_via_secret', to: 'accept_invitation#accept_via_secret', as: :accept_via_secret
   get 'rankings', to: 'ranked_golfer#index', as: :current_rankings
   get 'ranked_golfers', to: 'ranked_golfer#list'
+  get 'reset_ranks', to: 'ranked_golfer#reset'
   get '/templates/:path.html' => 'templates#template', :constraints => {:path => /.+/}
   root :to => 'visitors#new'
 end
