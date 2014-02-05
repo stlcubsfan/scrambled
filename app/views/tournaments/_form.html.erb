@@ -52,6 +52,13 @@
       </div>
     </div>
     <div class="form-group">
+      <label class="col-sm-4 control-label" for="tournament[leaderboard_url]">Leaderboard URL</label>
+      <div class="col-sm-8">
+        <%= f.text_field :leaderboard_url, :placeholder => "URL", :required => true %>
+        <span class="help-block">(e.g. http://sports.yahoo.com/golf/pga/leaderboard/2014/4)</span>
+      </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-4"></div>
         <div class="col-sm-8">
         <button class="btn btn-lg btn-success">Save Tournament</button>

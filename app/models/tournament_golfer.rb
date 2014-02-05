@@ -5,5 +5,4 @@ class TournamentGolfer
   field :player, type: String
   field :rank, type: Integer
 
-
 end

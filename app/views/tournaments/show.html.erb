@@ -11,7 +11,7 @@
         <th>Picking Cut-off</th><td><%= @tournament.picks_end.in_time_zone("America/Chicago").strftime("%Y-%m-%d %I:%M %p %Z") %></td>
       </tr>
       <tr>
-        <th>Secret Code</th><td><%= @tournament.secret_code %></td><th></th><td></td>
+        <th>Secret Code</th><td><%= @tournament.secret_code %></td><th>Leaderboard</th><td><%= @tournament.leaderboard_url %></td>
       </tr>
     </table>
   </div>

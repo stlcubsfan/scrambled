@@ -139,6 +139,6 @@ class TournamentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
-      params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end, :secret_code)
+      params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end, :secret_code, :leaderboard_url)
     end
 end
