@@ -22,7 +22,6 @@ class RankedGolferController < ApplicationController
     mech.get("http://sports.yahoo.com/golf/pga/stats/bycategory?season=2014&cat=WORLD_RANK") do |page|
       RankedGolfer.delete_all
       rows = page / ".sportsTable tbody tr"
-      logger.debug rows.size
       rows.each do |row|
         golfer = RankedGolfer.new
         golfer.player = (row / ".player").text
