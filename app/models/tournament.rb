@@ -7,4 +7,8 @@ class Tournament < ActiveRecord::Base
 
   belongs_to :admin
   has_many :tournament_invitations
+
+  def golfers
+    @golfers = TournamentGolfer.where(:tournament_id => self.id).order_by(:rank.asc)
+  end
 end
