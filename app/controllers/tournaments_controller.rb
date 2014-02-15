@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
-  before_filter :authenticate_admin!, except: [:upcoming]
-  before_action :set_tournament, only: [:show, :edit, :update, :destroy, :uninvited_users, :invite_users]
+  before_filter :authenticate_admin!, except: [:upcoming, :user_tournaments]
+  before_action :set_tournament, only: [:show, :edit, :update, :destroy, :uninvited_users, :invite_users, :freeze_golfers]
 
   # GET /tournaments
   # GET /tournaments.json
@@ -79,6 +79,33 @@ class TournamentsController < ApplicationController
     render json: @tournaments
   end
 
+  def user_tournaments
+    if user_signed_in?
+      tournaments =  current_user.tournament_invitations.accepted.collect do |ti|
+        ti.tournament.secret_code = "{it's a secret}"
+        ti.tournament
+      end
+      render json: tournaments
+
+    else
+      render json: []
+    end
+
+  end
+
+  def freeze_golfers
+    golfers = RankedGolfer.all
+    TournamentGolfer.delete_all(tournament_id: @tournament.id)
+    golfers.each do |g|
+      tg = TournamentGolfer.new
+      tg.player = g.player
+      tg.rank = g.rank
+      tg.tournament_id = @tournament.id
+      tg.save
+    end
+    redirect_to @tournament, notice: "Golfers have been frozen"
+  end
+
   def invite_users
     users = params[:invite].keys
     users.each do |u|
@@ -112,6 +139,6 @@ class TournamentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
-      params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end, :secret_code)
+      params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end, :secret_code, :leaderboard_url)
     end
 end

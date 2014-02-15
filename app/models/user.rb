@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
     def unaccepted
       where accepted: false
     end
+    def accepted
+      where accepted: true
+    end
   end
 
 end

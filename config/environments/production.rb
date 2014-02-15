@@ -82,7 +82,7 @@ Scrambled::Application.configure do
     password: ENV["GMAIL_PASSWORD"]
   }
 
-  config.action_mailer.default_url_options = { :host => 'scramblers.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'scrambled.herokuapp.com' }
 
   # Disable automatic flushing of the log to improve performance.
   # config.autoflush_log = false

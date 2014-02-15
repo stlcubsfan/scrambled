@@ -9,10 +9,12 @@ Scrambled::Application.routes.draw do
       get 'upcoming'
       get 'current'
       get 'previous'
+      get 'user_tournaments'
     end
     member do
       get 'uninvited_users'
       post 'invite_users'
+      get 'freeze_golfers'
     end
   end
 
