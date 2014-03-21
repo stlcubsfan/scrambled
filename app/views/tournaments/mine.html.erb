@@ -1,0 +1,96 @@
+<div ng-app="scrambledApp">
+    <div class="container" ng-controller="UserTournamentController">
+      <div class="col-md-2 deckHolder">
+        <div class="row">
+          Select a tournament:
+        </div>
+        <div class="row deck" ng-repeat="tournament in tournaments | orderBy:-start_date">
+            <div ng-click="selectTournament(tournament)">
+              {{tournament.name}}
+            </div>
+        </div>
+      </div>
+      <div class="col-md-9 col-md-offset-1 tournament"
+           ng-class="{'active': isViewingTournament}" >
+        <div>
+
+          <h2>{{selectedTournament.name}}</h2>
+
+        </div>
+        <div ng-show="beforeStartDate">
+          <h3>
+            This tournament has not started quite yet.
+            Please check back after {{selectedTournament.picks_start | date: 'medium'}} </h3>
+        </div>
+        <div ng-show="pickingTime">
+          <h4>Make your picks below (you have until {{selectedTournament.picks_end | date: 'medium'}}):</h4>
+          <form role="form" class="form-horizontal" >
+            <input type="hidden" name="tournament_id" value="{{selectedTournament.id}}"/>
+            <div class="form-group">
+              <label for="agolfer" class="control-label">"A" Golfer:</label>
+              <select class="form-control" ng-model="invite.agolfer" ng-options="g.player as g.player for g in agolfers" required="true"></select>
+
+            </div>
+            <div class="form-group">
+              <label for="bgolfer">"B" Golfer:</label>
+              <select class="form-control" ng-model="invite.bgolfer" ng-options="g.player as g.player for g in bgolfers" required="true"></select>
+            </div>
+            <div class="form-group">
+              <label for="cgolfer">"C" Golfer:</label>
+              <select class="form-control" ng-model="invite.cgolfer" ng-options="g.player as g.player for g in cgolfers" required="true"></select>
+            </div>
+            <div class="form-group">
+              <label for="dgolfer">"D" Golfer:</label>
+              <select class="form-control" ng-model="invite.dgolfer" ng-options="g.player as g.player for g in dgolfers" required="true"></select>
+            </div>
+            <button class="btn btn-primary" ng-click="submitGolfers(invite)">Submit</button>
+          </form>
+        </div>
+        <div ng-show="showStandings">
+          <h4>Current Standings:</h4>
+          <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-2">
+
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              "A" Golfer
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              "B" Golfer
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              "C" Golfer
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              "D" Golfer
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2">
+              Total Score
+            </div>
+          </div>
+        <div ng-repeat="player in standings | orderBy:'-totalScore'" class="row">
+          <div class="col-md-2 col-sm-2 col-xs-2">
+            {{player.name}}
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore">
+            {{player.agolfer}} ({{player.agolferScore}})
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore">
+            {{player.bgolfer}} ({{player.bgolferScore}})
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore">
+            {{player.cgolfer}} ({{player.cgolferScore}})
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore">
+            {{player.dgolfer}} ({{player.dgolferScore}})
+          </div>
+          <div class="col-md-2 col-sm-2 col-xs-2">
+            {{ player.totalScore }}
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+</div>

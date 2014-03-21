@@ -1,6 +1,11 @@
 class TournamentsController < ApplicationController
-  before_filter :authenticate_admin!, except: [:upcoming, :user_tournaments]
-  before_action :set_tournament, only: [:show, :edit, :update, :destroy, :uninvited_users, :invite_users, :freeze_golfers]
+  require 'mechanize'
+
+  before_filter :authenticate_admin!, except: [:upcoming, :user_tournaments, :mine]
+  before_action :set_tournament, only: [:show, :edit, :update, :destroy,
+                                        :uninvited_users, :invite_users, :freeze_golfers,
+                                        :agolfers, :bgolfers, :cgolfers, :dgolfers,
+                                        :user_tournament_invitation, :standings]
 
   # GET /tournaments
   # GET /tournaments.json
@@ -79,6 +84,11 @@ class TournamentsController < ApplicationController
     render json: @tournaments
   end
 
+
+  def mine
+
+  end
+
   def user_tournaments
     if user_signed_in?
       tournaments =  current_user.tournament_invitations.accepted.collect do |ti|
@@ -93,6 +103,43 @@ class TournamentsController < ApplicationController
 
   end
 
+  def user_tournament_invitation
+    if user_signed_in?
+      invite = TournamentInvitation.find_by_tournament_id_and_user_id(params["id"], current_user.id)
+      render json: invite
+    end
+  end
+
+  def update_invitation_with_golfers
+    invite_params = golfers_for_invitation_params
+
+    invitation = TournamentInvitation.find_by_tournament_id_and_user_id(invite_params["tournament_id"], current_user.id)
+
+    if invitation && invitation.user == current_user
+      invitation.agolfer = invite_params["agolfer"]
+      invitation.bgolfer = invite_params["bgolfer"]
+      invitation.cgolfer = invite_params["cgolfer"]
+      invitation.dgolfer = invite_params["dgolfer"]
+      invitation.save
+      render json: invitation
+    end
+  end
+
+  def agolfers
+    render json: @tournament.a_golfers
+  end
+
+  def bgolfers
+    render json: @tournament.b_golfers
+  end
+
+  def cgolfers
+    render json: @tournament.c_golfers
+  end
+
+  def dgolfers
+    render json: @tournament.d_golfers
+  end
   def freeze_golfers
     golfers = RankedGolfer.all
     TournamentGolfer.delete_all(tournament_id: @tournament.id)
@@ -131,6 +178,23 @@ class TournamentsController < ApplicationController
     @uninvited_users -= invited_users
   end
 
+  def standings
+    invites = @tournament.tournament_invitations
+    @invites_plus_scores = []
+    current_scores = get_scores(@tournament)
+    invites.each do |i|
+      invite = InviteWithScore.new(i)
+      invite.agolferScore = current_scores[invite.agolfer]  || 0
+      invite.bgolferScore = current_scores[invite.bgolfer]  || 0
+      invite.cgolferScore = current_scores[invite.cgolfer]  || 0
+      invite.dgolferScore = current_scores[invite.dgolfer]  || 0
+      invite.totalScore = invite.totalScore
+      @invites_plus_scores << invite
+    end
+
+    render json: @invites_plus_scores
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tournament
@@ -140,5 +204,30 @@ class TournamentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
       params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end, :secret_code, :leaderboard_url)
+    end
+
+    def golfers_for_invitation_params
+      params.require(:picks).permit(:tournament_id, :agolfer, :bgolfer, :cgolfer, :dgolfer)
+    end
+
+    def get_scores(tournament)
+      agent = Mechanize.new
+      scores = {}
+      agent.get(tournament.leaderboard_url) do |page|
+        tbody = page.search("table.sportsTable tbody")
+        rows = tbody.search("tr")
+        rows.each do |row|
+          score = {}
+          name = row.search('.player').text.strip
+          total_score_str = row.search(".total").text.strip
+          actual_score = 0
+          actual_score = total_score_str.to_i unless total_score_str == '-' || total_score_str == 'E'
+
+          scores[name] = actual_score
+
+        end
+
+      end
+      scores
     end
 end

@@ -3,7 +3,7 @@
     <li><%= link_to "World Rankings", current_rankings_path %></li>
 <% end %>
 <% if user_signed_in? %>
-    <li><%= link_to "My Tournaments", "/" %></li>
+    <li><%= link_to "My Tournaments", "/tournaments/mine" %></li>
 <% end %>
 
 <% if admin_signed_in? %>

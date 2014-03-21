@@ -10,11 +10,19 @@ Scrambled::Application.routes.draw do
       get 'current'
       get 'previous'
       get 'user_tournaments'
+      get 'mine'
     end
     member do
       get 'uninvited_users'
       post 'invite_users'
       get 'freeze_golfers'
+      get 'agolfers'
+      get 'bgolfers'
+      get 'cgolfers'
+      get 'dgolfers'
+      post 'update_invitation_with_golfers'
+      get 'user_tournament_invitation'
+      get 'standings'
     end
   end
 

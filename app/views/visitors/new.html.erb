@@ -1,3 +1,42 @@
-<div ng-app="scrambledApp">
-    <div ui-view></div>
+<div ng-app="scrambledApp" ng-controller="UpcomingTournamentsListController">
+  <div class="carousel slide" id="main-carousel" data-ride="carousel" data-interval="4000">
+    <ol class="carousel-indicators">
+      <li class="active" data-target="#main-carousel" data-slide-to="0"></li>
+      <li data-target="#main-carousel" data-slide-to="1"></li>
+      <li data-target="#main-carousel" data-slide-to="2"></li>
+      <li data-target="#main-carousel" data-slide-to="3"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="item active">
+        <%= image_tag "masters.jpg" %>
+      </div>
+      <div class="item">
+        <%= image_tag "usopen.jpg" %>
+      </div>
+      <div class="item">
+        <%= image_tag "britishopen.jpg" %>
+      </div>
+      <div class="item">
+        <%= image_tag "pgachampionship.jpg" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4" ng-controller="UpcomingTournamentsListController">
+    <h3>Upcoming Tournaments</h3>
+    <table class="table table-striped table-bordered">
+      <tbody>
+      <tr ng-repeat="tournament in tournaments">
+        <td><strong>{{ tournament.name }}</strong> ({{ tournament.start_date | date:'MM/dd' }} - {{ tournament.end_date | date:'MM/dd'}})</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-4" ng-controller="EspnNewsController">
+    <h3>Golf Headlines</h3>
+    <div ng-repeat="hl in headlines">
+      <p><a ng-href="{{hl.links.web.href}}" target="_blank">{{hl.headline}}</a></p>
+    </div>
+  </div>
+  <div class="col-md-4"><h3>Previous Tournaments</h3></div>
 </div>
