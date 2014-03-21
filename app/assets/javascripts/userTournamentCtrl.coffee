@@ -36,10 +36,6 @@ angular.module('scrambledApp').controller "UserTournamentController", ['$rootSco
     $scope.showStandings = false
     $scope.selectedTournament = tournament
     $scope.isViewingTournament = true
-    $scope.showStandings = true
-    $http.get('/tournaments/' + $scope.selectedTournament.id + '/standings').then (data) ->
-      console.log(data.data)
-      $scope.standings = data.data
     date = new Date()
     if (date.isBefore(tournament.picks_start))
       $scope.beforeStartDate = true
