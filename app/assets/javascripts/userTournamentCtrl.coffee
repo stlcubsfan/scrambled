@@ -25,7 +25,8 @@ angular.module('scrambledApp').controller "UserTournamentController", ['$rootSco
       cgolfer: picks.cgolfer,
       dgolfer: picks.dgolfer
     }
-    $http.post('/tournaments/' + $scope.selectedTournament.id + '/update_invitation_with_golfers', {picks: data})
+    $http.post('/tournaments/' + $scope.selectedTournament.id + '/update_invitation_with_golfers', {picks: data}).success (data, status) ->
+      $scope.message = "Your picks have been saved successfully!"
 
 
 
@@ -34,6 +35,7 @@ angular.module('scrambledApp').controller "UserTournamentController", ['$rootSco
     $scope.pickingTime = false
     $scope.beforeStartDate = false
     $scope.showStandings = false
+    $scope.message = ''
     $scope.selectedTournament = tournament
     $scope.isViewingTournament = true
     date = new Date()

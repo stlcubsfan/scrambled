@@ -5,7 +5,7 @@
           Select a tournament:
         </div>
         <div class="row deck" ng-repeat="tournament in tournaments | orderBy:-start_date">
-            <div ng-click="selectTournament(tournament)">
+            <div ng-click="selectTournament(tournament)" style="text-decoration: underline">
               {{tournament.name}}
             </div>
         </div>
@@ -23,6 +23,7 @@
             Please check back after {{selectedTournament.picks_start | date: 'medium'}} </h3>
         </div>
         <div ng-show="pickingTime">
+					
           <h4>Make your picks below (you have until {{selectedTournament.picks_end | date: 'medium'}}):</h4>
           <form role="form" class="form-horizontal" >
             <input type="hidden" name="tournament_id" value="{{selectedTournament.id}}"/>
@@ -45,6 +46,7 @@
             </div>
             <button class="btn btn-primary" ng-click="submitGolfers(invite)">Submit</button>
           </form>
+					<p style="font-weight: bold; color: green">{{message}}</p>
         </div>
         <div ng-show="showStandings">
           <h4>Current Standings:</h4>
