@@ -40,21 +40,16 @@ angular.module('scrambledApp').controller "UserTournamentController", ['$rootSco
     if (date.isBefore(tournament.picks_start))
       $scope.beforeStartDate = true
     if (date.isBetween(tournament.picks_start, tournament.picks_end))
-      #$scope.invite = service.userInvite(tournament.id)
-			$http.get('/tournaments/' + $scope.selectedTournament.id + '/user_tournament_invitation').then (data) ->
-				$scope.invite = data.data
-      #$scope.agolfers = service.agolfers(tournament.id)
-			$http.get('/tournaments/' + $scope.selectedTournament.id + '/agolfers').then (data) ->
-				$scope.agolfers = data.data
-      #$scope.bgolfers = service.bgolfers(tournament.id)
-      #$scope.cgolfers = service.cgolfers(tournament.id)
-      #$scope.dgolfers = service.dgolfers(tournament.id)
-			$http.get('/tournaments/' + $scope.selectedTournament.id + '/bgolfers').then (data) ->
-				$scope.bgolfers = data.data
-			$http.get('/tournaments/' + $scope.selectedTournament.id + '/cgolfers').then (data) ->
-				$scope.cgolfers = data.data
-			$http.get('/tournaments/' + $scope.selectedTournament.id + '/dgolfers').then (data) ->
-				$scope.dgolfers = data.data				
+      $http.get('/tournaments/' + $scope.selectedTournament.id + '/user_tournament_invitation').then (data) ->
+        $scope.invite = data.data
+      $http.get('/tournaments/' + $scope.selectedTournament.id + '/agolfers').then (data) ->
+        $scope.agolfers = data.data
+      $http.get('/tournaments/' + $scope.selectedTournament.id + '/bgolfers').then (data) ->
+        $scope.bgolfers = data.data
+      $http.get('/tournaments/' + $scope.selectedTournament.id + '/cgolfers').then (data) ->
+        $scope.cgolfers = data.data
+      $http.get('/tournaments/' + $scope.selectedTournament.id + '/dgolfers').then (data) ->
+        $scope.dgolfers = data.data				
       $scope.pickingTime = true
     if (date.isAfter(tournament.picks_end))
       $scope.showStandings = true
