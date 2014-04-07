@@ -145,12 +145,15 @@ class TournamentsController < ApplicationController
   def freeze_golfers
     golfers = RankedGolfer.all
     TournamentGolfer.delete_all(tournament_id: @tournament.id)
+		current_scores = get_scores(@tournament)
     golfers.each do |g|
-      tg = TournamentGolfer.new
-      tg.player = g.player
-      tg.rank = g.rank
-      tg.tournament_id = @tournament.id
-      tg.save
+			if current_scores.has_key?(g.player)
+				tg = TournamentGolfer.new
+				tg.player = g.player
+				tg.rank = g.rank
+				tg.tournament_id = @tournament.id
+				tg.save
+			end
     end
     redirect_to @tournament, notice: "Golfers have been frozen"
   end
