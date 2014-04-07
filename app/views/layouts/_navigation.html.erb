@@ -16,7 +16,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
       <% if admin_signed_in? %>
-        <li><%= link_to "Welcome, #{current_admin.first_name}", destroy_admin_session_path, :method => :delete %></li>
+        <li><%= link_to "Welcome, #{current_admin.first_name} (Click to Log Out)", destroy_admin_session_path, :method => :delete %></li>
       <% elsif user_signed_in? %>
         <li><%= link_to "Welcome, #{current_user.first_name}", destroy_user_session_path, :method => :delete %></li>
       <% else %>
