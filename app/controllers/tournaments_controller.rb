@@ -1,7 +1,9 @@
 class TournamentsController < ApplicationController
   require 'mechanize'
 
-  before_filter :authenticate_admin!, except: [:upcoming, :user_tournaments, :mine]
+  before_filter :authenticate_admin!, except: [:upcoming, :user_tournaments, :mine, 
+			:agolfers, :bgolfers, :cgolfers, :dgolfers, :user_tournament_invitation, :standings
+		]
   before_action :set_tournament, only: [:show, :edit, :update, :destroy,
                                         :uninvited_users, :invite_users, :freeze_golfers,
                                         :agolfers, :bgolfers, :cgolfers, :dgolfers,
