@@ -70,7 +70,7 @@
               Total Score
             </div>
           </div>
-        <div ng-repeat="player in standings | orderBy:totalScore" class="row">
+        <div ng-repeat="player in standings | orderBy:'totalScore'" class="row">
           <div class="col-md-2 col-sm-2 col-xs-2">
             {{player.name}}
           </div>
