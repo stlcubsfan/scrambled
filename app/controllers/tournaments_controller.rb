@@ -7,7 +7,7 @@ class TournamentsController < ApplicationController
   before_action :set_tournament, only: [:show, :edit, :update, :destroy,
                                         :uninvited_users, :invite_users, :freeze_golfers,
                                         :agolfers, :bgolfers, :cgolfers, :dgolfers,
-                                        :user_tournament_invitation, :standings]
+                                        :user_tournament_invitation, :update_invitation_with_golfers, :standings]
 
   # GET /tournaments
   # GET /tournaments.json
