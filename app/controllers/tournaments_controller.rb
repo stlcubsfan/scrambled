@@ -225,9 +225,14 @@ class TournamentsController < ApplicationController
           score = {}
           name = row.search('.player').text.strip
           total_score_str = row.search(".total").text.strip
+					# added
+					strokes = row.search(".last").text.strip
+					# added
+					third_round = row.search("td")[4].text.strip
           actual_score = 0
           actual_score = total_score_str.to_i unless total_score_str == '-' || total_score_str == 'E'
-
+					# added
+					actual_score = (strokes.to_i - 144) if (third_round == 'CUT' && total_score_str == '-')
           scores[name] = actual_score
 
         end
