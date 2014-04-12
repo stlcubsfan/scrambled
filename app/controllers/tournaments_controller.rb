@@ -232,7 +232,7 @@ class TournamentsController < ApplicationController
           actual_score = 0
           actual_score = total_score_str.to_i unless total_score_str == '-' || total_score_str == 'E'
 					# added
-					actual_score = (strokes.to_i - 144) if (third_round == 'CUT' && total_score_str == '-')
+					actual_score = (strokes.to_i - 144) if ((third_round == 'CUT' || third_round == 'MC') && total_score_str == '-')
           scores[name] = actual_score
 
         end
