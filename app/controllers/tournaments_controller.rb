@@ -226,7 +226,7 @@ class TournamentsController < ApplicationController
           name = row.search('.player').text.strip
           total_score_str = row.search(".total").text.strip
 					# added
-					strokes = row.search(".last").text.strip
+					strokes = row.search("td")[8].text.strip
 					# added
 					third_round = row.search("td")[4].text.strip
           actual_score = 0
