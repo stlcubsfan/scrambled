@@ -208,7 +208,7 @@ class TournamentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
-      params.require(:tournament).permit(:name, :start_date, :end_date, :picks_start, :picks_end, :secret_code, :leaderboard_url)
+      params.require(:tournament).permit(:name, :par, :start_date, :end_date, :picks_start, :picks_end, :secret_code, :leaderboard_url)
     end
 
     def golfers_for_invitation_params
@@ -232,7 +232,7 @@ class TournamentsController < ApplicationController
           actual_score = 0
           actual_score = total_score_str.to_i unless total_score_str == '-' || total_score_str == 'E'
 					# added
-					actual_score = (strokes.to_i - 144) if ((third_round == 'CUT' || third_round == 'MC') && total_score_str == '-')
+					actual_score = (strokes.to_i - (tournament.par * 2)) if ((third_round == 'CUT' || third_round == 'MC') && total_score_str == '-')
           scores[name] = actual_score
 
         end

@@ -4,6 +4,8 @@ class Tournament < ActiveRecord::Base
   validates :end_date, presence: true
   validates :picks_start, presence: true
   validates :picks_end, presence: true
+  validates :par, presence: true, numericality: { only_integer: true, greater_than: 0 }
+
 
   belongs_to :admin
   has_many :tournament_invitations
