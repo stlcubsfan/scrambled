@@ -29,24 +29,38 @@
 						Entries without fees paid by tournament start will be deleted.</h5>
           <form role="form" class="form-horizontal" >
             <input type="hidden" name="tournament_id" value="{{selectedTournament.id}}"/>
-            <div class="form-group">
-              <label for="agolfer" class="control-label">"A" Golfer:</label>
-              <select class="form-control" ng-model="invite.agolfer" ng-options="g.player as g.player for g in agolfers" required="true"></select>
+						<div class="row">
+							<div class="col-md-5 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<label for="agolfer" class="control-label">"A" Golfer:</label>
+									<select class="form-control" ng-model="invite.agolfer" ng-options="g.player as g.player for g in agolfers" required="true"></select>
 
-            </div>
-            <div class="form-group">
-              <label for="bgolfer">"B" Golfer:</label>
-              <select class="form-control" ng-model="invite.bgolfer" ng-options="g.player as g.player for g in bgolfers" required="true"></select>
-            </div>
-            <div class="form-group">
-              <label for="cgolfer">"C" Golfer:</label>
-              <select class="form-control" ng-model="invite.cgolfer" ng-options="g.player as g.player for g in cgolfers" required="true"></select>
-            </div>
-            <div class="form-group">
-              <label for="dgolfer">"D" Golfer:</label>
-              <select class="form-control" ng-model="invite.dgolfer" ng-options="g.player as g.player for g in dgolfers" required="true"></select>
-            </div>
+								</div>
+							</div>
+							<div class="col-md-5 col-md-offset-1 col-sm-offset-0 col-xs-offset-0 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<label for="bgolfer" class="control-label">"B" Golfer:</label>
+									<select class="form-control" ng-model="invite.bgolfer" ng-options="g.player as g.player for g in bgolfers" required="true"></select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-5 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<label for="cgolfer" class="control-label">"C" Golfer:</label>
+									<select class="form-control" ng-model="invite.cgolfer" ng-options="g.player as g.player for g in cgolfers" required="true"></select>
+								</div>
+							</div>
+							<div class="col-md-5 col-md-offset-1 col-sm-offset-0 col-xs-offset-0 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<label for="dgolfer" class="control-label">"D" Golfer:</label>
+									<select class="form-control" ng-model="invite.dgolfer" ng-options="g.player as g.player for g in dgolfers" required="true"></select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
             <button class="btn btn-primary" ng-click="submitGolfers(invite)">Submit</button>
+						</div>
           </form>
 					<p style="font-weight: bold; color: green">{{message}}</p>
         </div>
