@@ -181,3 +181,11 @@ section {
   font-size: 0.8em;
 }
 
+.standingRow {
+	border-bottom: 1px solid #ccc;
+	line-height: 18px;
+}
+
+.standingOddRow {
+	background-color: #eee;
+}

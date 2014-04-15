@@ -10,7 +10,7 @@
             </div>
         </div>
       </div>
-      <div class="col-md-9 col-md-offset-1 tournament"
+      <div class="col-md-10 tournament"
            ng-class="{'active': isViewingTournament}" >
         <div>
 
@@ -65,7 +65,7 @@
 					<p style="font-weight: bold; color: green">{{message}}</p>
         </div>
         <div ng-show="showStandings">
-	  <p class="text-danger"><b>Note:</b> {{selectedTournament.message}}</p>
+	  			<p class="text-danger"><b>Note:</b> {{selectedTournament.message}}</p>
           <h4>Current Standings:</h4>
           <div class="row">
             <div class="col-md-3 col-sm-3 col-xs-3">
@@ -87,7 +87,7 @@
               Total
             </div>
           </div>
-        <div ng-repeat="player in standings | orderBy:'totalScore'" class="row">
+        <div ng-repeat="player in standings | orderBy:'totalScore'" class="row standingRow" ng-class-odd="'standingOddRow'">
           <div class="col-md-3 col-sm-3 col-xs-3">
             {{player.name}}
           </div>
