@@ -228,6 +228,7 @@ class TournamentsController < ApplicationController
         rows.each do |row|
           score = {}
           name = row.search('.player').text.strip
+	  logger.info("****** Player name #{name} ***")
           total_score_str = row.search(".total").text.strip
 					# added
 					strokes = row.search("td")[9].text.strip
