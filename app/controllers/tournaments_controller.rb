@@ -185,6 +185,7 @@ class TournamentsController < ApplicationController
 
   def standings
     invites = @tournament.tournament_invitations
+    invites.delete_if {|inv| inv.accepted == false}
     @invites_plus_scores = []
     current_scores = get_scores(@tournament)
     invites.each do |i|
