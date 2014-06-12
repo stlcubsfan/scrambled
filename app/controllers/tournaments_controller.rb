@@ -184,8 +184,11 @@ class TournamentsController < ApplicationController
   end
 
   def standings
-    invites = @tournament.tournament_invitations
-    invites.delete_if {|inv| !inv.accepted? }
+    all_invites = @tournament.tournament_invitations
+    invites = []
+    all_invites.each do |inv| 
+      invites << inv if inv.accepted? and agolfer != null
+    end
     @invites_plus_scores = []
     current_scores = get_scores(@tournament)
     invites.each do |i|
