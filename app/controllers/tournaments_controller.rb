@@ -228,12 +228,12 @@ class TournamentsController < ApplicationController
         rows.each do |row|
           score = {}
           name = row.search('.player').text.strip
-	  logger.info("****** Player name #{name} ***")
+	  next if name =~ /started on/
           total_score_str = row.search(".total").text.strip
-					# added
-					strokes = row.search("td")[9].text.strip
-					# added
-					third_round = row.search("td")[4].text.strip
+	  # added
+	  strokes =  row.search("td.total + td").text.strip # row.search("td")[9].text.strip
+	  # added
+	  third_round = row.search("td")[4].text.strip
           actual_score = 0
           actual_score = total_score_str.to_i unless total_score_str == '-' || total_score_str == 'E'
 					# added
