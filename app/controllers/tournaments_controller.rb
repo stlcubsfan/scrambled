@@ -228,6 +228,7 @@ class TournamentsController < ApplicationController
         rows.each do |row|
           score = {}
           name = row.search('.player').text.strip
+	  name = name.gsub('*', '') if name
 	  next if name =~ /started on/
           total_score_str = row.search(".total").text.strip
 	  # added
