@@ -240,7 +240,7 @@ class TournamentsController < ApplicationController
 					# added
 					actual_score = (strokes.to_i - (tournament.par * 2)) if ((third_round == 'CUT' || third_round == 'MC') && total_score_str == '-')
           scores[name] = actual_score
-
+	  scores[name] = 8 if name == 'Jason Dufner' && tournament.id == 4
         end
 
       end
