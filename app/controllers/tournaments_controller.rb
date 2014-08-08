@@ -227,6 +227,7 @@ class TournamentsController < ApplicationController
         rows = tbody.search("tr")
         rows.each do |row|
           score = {}
+	  next if row.search('.player') == nil
           name = row.search('.player').text.strip
 	  name = name.gsub('*', '') if name
 	  next if name =~ /started on/
