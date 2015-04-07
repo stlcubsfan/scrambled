@@ -67,7 +67,7 @@
             </tr>
         </thead>
         <tbody>
-            <% @tournament.tournament_invitations.sort_by{|x| [x.accepted?, x.last_name]}.each do |ti| %>
+            <% @tournament.tournament_invitations.sort_by{|x| [x.accepted?, x.user.last_name]}.each do |ti| %>
             <tr>
               <td><%= ti.user.first_name %> <%= ti.user.last_name %></td>
               <td><%= ti.user.email %></td>
