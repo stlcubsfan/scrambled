@@ -242,7 +242,8 @@ class TournamentsController < ApplicationController
 					actual_score = (strokes.to_i - (tournament.par * 2)) if ((third_round == 'CUT' || third_round == 'MC') && total_score_str == '-')
           scores[name] = actual_score
 	  scores[name] = 8 if name == 'Jason Dufner' && tournament.id == 4
-    	  scores['Angel Cabrera'] = 15 if tournament.id == 4   		
+    	  scores['Angel Cabrera'] = 15 if tournament.id == 4
+	  scores['Tiger Woods'] = 16 if tournamentt.id == 6   		
      end
 
       end
