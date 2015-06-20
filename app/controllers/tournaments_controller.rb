@@ -243,7 +243,7 @@ class TournamentsController < ApplicationController
           scores[name] = actual_score
 	  scores[name] = 8 if name == 'Jason Dufner' && tournament.id == 4
     	  scores['Angel Cabrera'] = 15 if tournament.id == 4
-	  scores['Tiger Woods'] = 16 if tournamentt.id == 6   		
+	  scores['Tiger Woods'] = 16 if tournament.id == 6   		
      end
 
       end
