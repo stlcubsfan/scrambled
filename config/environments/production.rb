@@ -73,13 +73,13 @@ Scrambled::Application.configure do
   config.active_support.deprecation = :notify
 
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: 'smtp.sendgrid.net', #'smtp.gmail.com',
     port: 587,
-    domain: ENV["DOMAIN_NAME"],
+    domain: 'heroku.com', #ENV["DOMAIN_NAME"],
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: ENV["GMAIL_USERNAME"],
-    password: ENV["GMAIL_PASSWORD"]
+    user_name: ENV['SENDGRID_USERNAME'], #ENV["GMAIL_USERNAME"],
+    password: ENV['SENDGRID_PASSWORD'] #ENV["GMAIL_PASSWORD"]
   }
 
   config.action_mailer.default_url_options = { :host => 'scrambled.herokuapp.com' }
