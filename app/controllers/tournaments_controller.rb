@@ -204,10 +204,14 @@ class TournamentsController < ApplicationController
     end
     invites.each do |i|
       invite = InviteWithScore.new(i)
-      invite.agolferScore = current_scores[invite.agolfer] || 0
-      invite.bgolferScore = current_scores[invite.bgolfer] || 0
-      invite.cgolferScore = current_scores[invite.cgolfer] || 0
-      invite.dgolferScore = current_scores[invite.dgolfer] || 0
+      invite.agolferScore = current_scores[invite.agolfer]['total'] || 0
+      invite.agolferStatus = current_scores[invite.agolfer]['status']
+      invite.bgolferScore = current_scores[invite.bgolfer]['total'] || 0
+      invite.bgolferStatus = current_scores[invite.bgolfer]['status']
+      invite.cgolferScore = current_scores[invite.cgolfer]['total'] || 0
+      invite.cgolferStatus = current_scores[invite.cgolfer]['status']
+      invite.dgolferScore = current_scores[invite.dgolfer]['total'] || 0
+      invite.dgolferStatus = current_scores[invite.dgolfer]['status']
       invite.totalScore = invite.totalScore
       @invites_plus_scores << invite
     end
@@ -267,7 +271,11 @@ class TournamentsController < ApplicationController
     scores = {}
     data['leaderboard']['players'].each do |player|
       name = "#{player['player_bio']['first_name']} #{player['player_bio']['last_name']}"
-      scores[name] = player['total']
+      score = {}
+      score['total'] = player['total']
+      score['status'] = player['status']
+      scores[name] = score
+
     end
     scores
   end
