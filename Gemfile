@@ -16,6 +16,7 @@ gem 'thin'
 gem 'devise'
 gem 'mongoid', git: 'https://github.com/mongoid/mongoid.git'
 gem 'mechanize'
+gem 'json'
 
 group :production do
   gem 'rails_12factor'

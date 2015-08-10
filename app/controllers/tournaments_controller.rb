@@ -1,9 +1,11 @@
 class TournamentsController < ApplicationController
   require 'mechanize'
+  require 'net/http'
+  require 'json'
 
-  before_filter :authenticate_admin!, except: [:upcoming, :user_tournaments, :mine, 
-			:agolfers, :bgolfers, :cgolfers, :dgolfers, :user_tournament_invitation, :standings, :update_invitation_with_golfers
-		]
+  before_filter :authenticate_admin!, except: [:upcoming, :user_tournaments, :mine,
+                                               :agolfers, :bgolfers, :cgolfers, :dgolfers, :user_tournament_invitation, :standings, :update_invitation_with_golfers
+  ]
   before_action :set_tournament, only: [:show, :edit, :update, :destroy,
                                         :uninvited_users, :invite_users, :freeze_golfers,
                                         :agolfers, :bgolfers, :cgolfers, :dgolfers,
@@ -93,7 +95,7 @@ class TournamentsController < ApplicationController
 
   def user_tournaments
     if user_signed_in?
-      tournaments =  current_user.tournament_invitations.accepted.collect do |ti|
+      tournaments = current_user.tournament_invitations.accepted.collect do |ti|
         ti.tournament.secret_code = "{it's a secret}"
         ti.tournament
       end
@@ -142,18 +144,23 @@ class TournamentsController < ApplicationController
   def dgolfers
     render json: @tournament.d_golfers
   end
+
   def freeze_golfers
     golfers = RankedGolfer.all
     TournamentGolfer.delete_all(tournament_id: @tournament.id)
-		current_scores = get_scores(@tournament)
+    if @tournament.leaderboard_url.ends_with? 'json'
+      current_scores = get_json_scores @tournament
+    else
+      current_scores = get_scores @tournament
+    end
     golfers.each do |g|
-			if current_scores.has_key?(g.player)
-				tg = TournamentGolfer.new
-				tg.player = g.player
-				tg.rank = g.rank
-				tg.tournament_id = @tournament.id
-				tg.save
-			end
+      if current_scores.has_key?(g.player)
+        tg = TournamentGolfer.new
+        tg.player = g.player
+        tg.rank = g.rank
+        tg.tournament_id = @tournament.id
+        tg.save
+      end
     end
     redirect_to @tournament, notice: "Golfers have been frozen"
   end
@@ -179,24 +186,28 @@ class TournamentsController < ApplicationController
 
   def uninvited_users
     @uninvited_users = User.all
-    invited_users = @tournament.tournament_invitations.collect {|ti| ti.user}
+    invited_users = @tournament.tournament_invitations.collect { |ti| ti.user }
     @uninvited_users -= invited_users
   end
 
   def standings
     all_invites = @tournament.tournament_invitations
     invites = []
-    all_invites.each do |inv| 
+    all_invites.each do |inv|
       invites << inv if (inv.accepted? and inv.agolfer)
     end
     @invites_plus_scores = []
-    current_scores = get_scores(@tournament)
+    if @tournament.leaderboard_url.ends_with? 'json'
+      current_scores = get_json_scores @tournament
+    else
+      current_scores = get_scores @tournament
+    end
     invites.each do |i|
       invite = InviteWithScore.new(i)
-      invite.agolferScore = current_scores[invite.agolfer]  || 0
-      invite.bgolferScore = current_scores[invite.bgolfer]  || 0
-      invite.cgolferScore = current_scores[invite.cgolfer]  || 0
-      invite.dgolferScore = current_scores[invite.dgolfer]  || 0
+      invite.agolferScore = current_scores[invite.agolfer] || 0
+      invite.bgolferScore = current_scores[invite.bgolfer] || 0
+      invite.cgolferScore = current_scores[invite.cgolfer] || 0
+      invite.dgolferScore = current_scores[invite.dgolfer] || 0
       invite.totalScore = invite.totalScore
       @invites_plus_scores << invite
     end
@@ -205,48 +216,59 @@ class TournamentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tournament
-      @tournament = Tournament.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tournament
+    @tournament = Tournament.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tournament_params
-      params.require(:tournament).permit(:name, :message, :par, :start_date, :end_date, :picks_start, :picks_end, :secret_code, :leaderboard_url)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tournament_params
+    params.require(:tournament).permit(:name, :message, :par, :start_date, :end_date, :picks_start, :picks_end, :secret_code, :leaderboard_url)
+  end
 
-    def golfers_for_invitation_params
-      params.require(:picks).permit(:tournament_id, :agolfer, :bgolfer, :cgolfer, :dgolfer)
-    end
+  def golfers_for_invitation_params
+    params.require(:picks).permit(:tournament_id, :agolfer, :bgolfer, :cgolfer, :dgolfer)
+  end
 
-    def get_scores(tournament)
-      agent = Mechanize.new
-      scores = {}
-      agent.get(tournament.leaderboard_url) do |page|
-        tbody = page.search("table.sportsTable tbody")
-        rows = tbody.search("tr")
-        rows.each do |row|
-          score = {}
-	  next if row.search('.player').empty?
-          name = row.search('.player').text.strip
-	  name = name.gsub('*', '') if name
-	  next if name =~ /started on/
-          total_score_str = row.search(".total").text.strip
-	  # added
-	  strokes =  row.search("td.total + td").text.strip # row.search("td")[9].text.strip
-	  # added
-	  third_round = row.search("td")[4].text.strip
-          actual_score = 0
-          actual_score = total_score_str.to_i unless total_score_str == '-' || total_score_str == 'E'
-					# added
-					actual_score = (strokes.to_i - (tournament.par * 2)) if ((third_round == 'CUT' || third_round == 'MC') && total_score_str == '-')
-          scores[name] = actual_score
-	  scores[name] = 8 if name == 'Jason Dufner' && tournament.id == 4
-    	  scores['Angel Cabrera'] = 15 if tournament.id == 4
-	  scores['Tiger Woods'] = 16 if tournament.id == 6   		
-     end
-
+  def get_scores(tournament)
+    agent = Mechanize.new
+    scores = {}
+    agent.get(tournament.leaderboard_url) do |page|
+      tbody = page.search("table.sportsTable tbody")
+      rows = tbody.search("tr")
+      rows.each do |row|
+        score = {}
+        next if row.search('.player').empty?
+        name = row.search('.player').text.strip
+        name = name.gsub('*', '') if name
+        next if name =~ /started on/
+        total_score_str = row.search(".total").text.strip
+        # added
+        strokes = row.search("td.total + td").text.strip # row.search("td")[9].text.strip
+        # added
+        third_round = row.search("td")[4].text.strip
+        actual_score = 0
+        actual_score = total_score_str.to_i unless total_score_str == '-' || total_score_str == 'E'
+        # added
+        actual_score = (strokes.to_i - (tournament.par * 2)) if ((third_round == 'CUT' || third_round == 'MC') && total_score_str == '-')
+        scores[name] = actual_score
+        scores[name] = 8 if name == 'Jason Dufner' && tournament.id == 4
+        scores['Angel Cabrera'] = 15 if tournament.id == 4
+        scores['Tiger Woods'] = 16 if tournament.id == 6
       end
-      scores
+
     end
+    scores
+  end
+
+  def get_json_scores(tournament)
+    response = Net::Http.get_response(URI.parse(tournament.leaderboard_url))
+    data = JSON.parse(response.body)
+    scores = {}
+    data['leaderboard']['players'].each do |player|
+      name = "#{player['player_bio']['first_name']} #{player['player_bio']['last_name']}"
+      scores[name] = player['total']
+    end
+    scores
+  end
 end

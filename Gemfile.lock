@@ -193,6 +193,7 @@ DEPENDENCIES
   high_voltage
   jbuilder (~> 1.2)
   jquery-rails
+  json
   mechanize
   mongoid!
   pg
