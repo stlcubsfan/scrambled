@@ -91,16 +91,16 @@
           <div class="col-md-3 col-sm-3 col-xs-3">
             {{player.name}}
           </div>
-          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="cutGolfer: player.agolferStatus === 'cut'">
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.agolferStatus === 'cut'}">
             {{player.agolfer}} ({{player.agolferScore}})
           </div>
-          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="cutGolfer: player.bgolferStatus === 'cut'">
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.bgolferStatus === 'cut'}">
             {{player.bgolfer}} ({{player.bgolferScore}})
           </div>
-          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="cutGolfer: player.cgolferStatus === 'cut'">
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.cgolferStatus === 'cut'}">
             {{player.cgolfer}} ({{player.cgolferScore}})
           </div>
-          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="cutGolfer: player.dgolferStatus === 'cut'">
+          <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.dgolferStatus === 'cut'}">
             {{player.dgolfer}} ({{player.dgolferScore}})
           </div>
           <div class="col-md-1 col-sm-1 col-xs-1">
