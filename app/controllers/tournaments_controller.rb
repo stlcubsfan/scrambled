@@ -262,7 +262,7 @@ class TournamentsController < ApplicationController
   end
 
   def get_json_scores(tournament)
-    response = Net::Http.get_response(URI.parse(tournament.leaderboard_url))
+    response = Net::HTTP.get_response(URI.parse(tournament.leaderboard_url))
     data = JSON.parse(response.body)
     scores = {}
     data['leaderboard']['players'].each do |player|
