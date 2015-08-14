@@ -92,16 +92,16 @@
             {{player.name}}
           </div>
           <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.agolferStatus === 'cut'}">
-            {{player.agolfer}} ({{player.agolferScore}})
+            {{player.agolfer}} ({{player.agolferScore}}<span ng-if="player.agolferThru && player.agolferStatus !== 'cut'">, {{ player.agolferThru}}</span>)
           </div>
           <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.bgolferStatus === 'cut'}">
-            {{player.bgolfer}} ({{player.bgolferScore}})
+            {{player.bgolfer}} ({{player.bgolferScore}}<span ng-if="player.bgolferThru && player.bgolferStatus !== 'cut'">, {{ player.bgolferThru}}</span>)
           </div>
           <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.cgolferStatus === 'cut'}">
-            {{player.cgolfer}} ({{player.cgolferScore}})
+            {{player.cgolfer}} ({{player.cgolferScore}}<span ng-if="player.cgolferThru && player.cgolferStatus !== 'cut'">, {{ player.cgolferThru}}</span>)
           </div>
           <div class="col-md-2 col-sm-2 col-xs-2 golferScore" ng-class="{cutGolfer: player.dgolferStatus === 'cut'}">
-            {{player.dgolfer}} ({{player.dgolferScore}})
+            {{player.dgolfer}} ({{player.dgolferScore}}<span ng-if="player.dgolferThru && player.dgolferStatus !== 'cut'">, {{ player.dgolferThru}}</span>)
           </div>
           <div class="col-md-1 col-sm-1 col-xs-1">
             {{ player.totalScore }}

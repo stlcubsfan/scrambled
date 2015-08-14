@@ -206,12 +206,19 @@ class TournamentsController < ApplicationController
       invite = InviteWithScore.new(i)
       invite.agolferScore = current_scores[invite.agolfer]['total'] || 0
       invite.agolferStatus = current_scores[invite.agolfer]['status']
+
       invite.bgolferScore = current_scores[invite.bgolfer]['total'] || 0
       invite.bgolferStatus = current_scores[invite.bgolfer]['status']
       invite.cgolferScore = current_scores[invite.cgolfer]['total'] || 0
       invite.cgolferStatus = current_scores[invite.cgolfer]['status']
       invite.dgolferScore = current_scores[invite.dgolfer]['total'] || 0
       invite.dgolferStatus = current_scores[invite.dgolfer]['status']
+
+      invite.agolferThru = current_scores[invite.agolfer]['thru']
+      invite.bgolferThru = current_scores[invite.bgolfer]['thru']
+      invite.cgolferThru = current_scores[invite.cgolfer]['thru']
+      invite.dgolferThru = current_scores[invite.dgolfer]['thru']
+
       invite.totalScore = invite.totalScore
       @invites_plus_scores << invite
     end
@@ -274,6 +281,7 @@ class TournamentsController < ApplicationController
       score = {}
       score['total'] = player['total']
       score['status'] = player['status']
+      score['thru']  = player['thru']
       scores[name] = score
 
     end

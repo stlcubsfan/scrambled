@@ -2,7 +2,7 @@ class InviteWithScore
   attr_accessor :name, :agolfer, :bgolfer, :cgolfer, :dgolfer,
                 :agolferScore, :bgolferScore, :cgolferScore, :dgolferScore,
                 :agolferStatus, :bgolferStatus, :cgolferStatus, :dgolferStatus,
-                :totalScore
+                :totalScore, :agolferThru, :bgolferThru, :cgolferThru, :dgolferThru
 
   def initialize(invite)
     @agolfer = invite.agolfer
