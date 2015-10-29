@@ -27,8 +27,8 @@ h2. Development
 * Testing Framework: Test::Unit
 * Front-end Framework: Twitter Bootstrap 3.0 (Sass)
 * Form Builder: SimpleForm
-* Authentication: None
-* Authorization: None
+* Authentication: Devise
+* Authorization: Devise and Warden
 
 
 h2. Deployment
@@ -37,7 +37,7 @@ This app is set up to deploy to heroku
 
 h2. External Sources
 
-Currently using Yahoo to get the world rankings and PGA's leaderboard to get the scores per round
+Currently using Yahoo to get the world rankings and PGA's leaderboard to get the scores per round.  Sendgrid is being used as the email provider which added stability over sending straight thru gmail
 
 h2. Contributing
 
