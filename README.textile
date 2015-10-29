@@ -31,12 +31,13 @@ h2. Development
 * Authorization: None
 
 
-
-
-
 h2. Deployment
 
 This app is set up to deploy to heroku
+
+h2. External Sources
+
+Currently using Yahoo to get the world rankings and PGA's leaderboard to get the scores per round
 
 h2. Contributing
 
